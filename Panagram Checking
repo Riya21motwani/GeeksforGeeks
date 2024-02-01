@@ -1,0 +1,27 @@
+
+
+class Solution
+{
+  public:
+    //Function to check if a string is Pangram or not.
+    bool checkPangram (string s) {
+        // your code here
+        vector<int>visited(26,0); // vector of size 26
+        int n=s.size();
+        if(n<26)return false;
+       for(int i=0;i<n;i++){
+           if(s[i] >='a' && s[i] <='z'){
+               visited[s[i]-'a']++;
+           }
+           if(s[i] >='A' && s[i] <='Z' ){
+               visited[s[i]-'A']++;
+           }
+       }
+       
+       for(int i=0;i<26;i++){
+           if(visited[i]==0)return false;
+       }
+       return true;
+    }
+
+};
