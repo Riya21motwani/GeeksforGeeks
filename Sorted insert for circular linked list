@@ -1,0 +1,52 @@
+class Solution
+{
+    public:
+    Node *sortedInsert(Node* head, int data)
+    {
+       //Your code here
+      
+       Node*temp=head;
+       Node*newnode=new Node(data);
+        //when list is empty
+       if(head==NULL){
+           newnode->next=newnode;
+           return newnode;
+       }
+     
+       
+       
+       //when insertion at the front
+        if(data<head->data){
+           while(temp->next!=head){
+               temp=temp->next;
+           }
+           temp->next=newnode;
+           newnode->next=head;
+           return newnode;
+       }
+     
+     while(temp->next!=head)  {
+       
+      
+       
+       //insertion at middle
+       if(temp->data<=data && data<=temp->next->data){
+          
+           newnode->next=temp->next;
+            temp->next=newnode;
+            return head;
+            
+       }
+       temp=temp->next;
+       
+     } 
+       
+       if(temp->next==head && data >temp->data){
+           temp->next=newnode;
+           newnode->next=head;
+       }
+       
+       return head;
+     
+    }
+};
