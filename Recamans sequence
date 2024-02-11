@@ -1,0 +1,23 @@
+class Solution{
+public:
+    vector<int> recamanSequence(int n){
+      
+        vector<int>ans(n,0);
+        set<int>st;
+        ans[0]=0;
+        for(int i=1;i<n;i++){
+            int t=ans[i-1]-i;
+            if( t>0 && st.find(t)==st.end()){
+                 st.insert(t);
+                ans[i]=t;
+               
+            }
+            else{
+                 st.insert(ans[i-1]+i);
+                ans[i]=ans[i-1]+i;
+                
+            }
+        }
+        return ans;
+    }
+};
