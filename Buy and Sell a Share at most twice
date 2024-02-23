@@ -1,0 +1,46 @@
+class Solution
+{
+    public:
+        //User function Template for C++
+        
+        int maxProfit(vector<int>&price){
+            //Write your code here..
+            int n=price.size();
+            vector<int>temp(n,0);
+            int maxi=price[n-1];
+            for(int i=n-2;i>=0;i--){
+                maxi=max(maxi,price[i]);
+                temp[i]=max(temp[i+1],maxi-price[i]);
+            }
+            int mini=price[0];
+            for(int i=1;i<n;i++){
+                mini=min(mini,price[i]);
+                
+               temp[i] =max(temp[i-1],price[i]-mini+temp[i]);
+            }
+            return temp[n-1];
+        }
+};
+
+// using dp
+
+class Solution {
+public:
+
+    int solve(int ind,int buy,int k,int n, vector<int>& prices, vector<vector<vector<int>>>&dp){
+       
+        if(ind==n|| k==0)return 0;
+        if(dp[ind][buy][k]!=-1)return dp[ind][buy][k];
+        if(buy==1){
+            return  dp[ind][buy][k]=max(-prices[ind]+solve(ind+1,0,k,n,prices,dp),solve(ind+1,1,k,n,prices,dp));
+        }
+        else{
+            return dp[ind][buy][k]=max(prices[ind]+solve(ind+1,1,k-1,n,prices,dp),solve(ind+1,0,k,n,prices,dp));
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int n=prices.size();
+        vector<vector<vector<int>>>dp(n,vector<vector<int>>(2,vector<int>(3,-1)));
+        return solve(0,1,2,n,prices,dp);
+    }
+};
